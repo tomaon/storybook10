@@ -1,0 +1,37 @@
+.root {
+  width: min(420px, calc(100vw - 2rem));
+  padding: 0;
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  box-shadow:
+    0 8px 32px rgb(0 0 0 / 0.12),
+    0 2px 8px rgb(0 0 0 / 0.08);
+}
+
+.root[open] {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.root::backdrop {
+  background: rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(2px);
+}
+
+:where(.root) header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 1.1rem 1.25rem 0.9rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+:where(.root) footer {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+  justify-content: end;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #f1f1f1;
+}

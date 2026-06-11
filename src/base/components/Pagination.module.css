@@ -1,0 +1,37 @@
+.root {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid #f1f1f1;
+}
+
+.root button {
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.45rem;
+  font-size: 0.82rem;
+  color: #555;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  transition: background 0.1s;
+}
+
+.root button:hover:not(:disabled) {
+  background: #f0f0f0;
+}
+
+.root button:disabled {
+  color: #d4d4d4;
+  cursor: not-allowed;
+}
+
+.root div {
+  padding: 0 0.25rem;
+  font-size: 0.82rem;
+  color: #555;
+}

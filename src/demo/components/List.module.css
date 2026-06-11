@@ -1,0 +1,218 @@
+.root {
+  width: calc(100% - 2.5rem);
+  max-width: 640px;
+  margin: 2.5rem auto;
+  overflow: hidden;
+  font-family: "Inter", system-ui, sans-serif;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.06),
+    0 4px 16px rgb(0 0 0 / 0.08);
+}
+
+/* ── header ── */
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.headerLeft {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: start;
+}
+
+.name {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f0f0f;
+  letter-spacing: -0.01em;
+}
+
+.count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #666;
+  background: #f0f0f0;
+  border-radius: 999px;
+}
+
+.headerRight {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+}
+
+.btnAdd,
+.btnDelete {
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  transition: opacity 0.15s;
+}
+
+.btnAdd:hover,
+.btnDelete:hover {
+  opacity: 0.85;
+}
+
+.btnAdd {
+  color: #fff;
+  background: #0f0f0f;
+}
+
+.btnDelete {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+.btnDelete:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+/* ── table ── */
+
+.table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #aaa;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.table td {
+  padding: 0.75rem 1.25rem;
+  color: #1a1a1a;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.table tbody tr:hover td {
+  background: #fafafa;
+}
+
+.table td.checkCell {
+  width: 2.5rem;
+  padding-right: 0;
+  padding-left: 1.25rem;
+}
+
+.rowSelected td {
+  background: #eff6ff;
+}
+
+.table .rowSelected:hover td {
+  background: #dbeafe;
+}
+
+.sortTh {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortTh:hover {
+  color: #555;
+}
+
+.sortIcon {
+  opacity: 0.3;
+}
+
+.sortIconActive {
+  color: #2563eb;
+}
+
+.keyCell {
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+  font-size: 0.82rem;
+  color: #2563eb;
+}
+
+/* ── empty ── */
+
+.empty {
+  padding: 2.5rem 1.25rem;
+  font-size: 0.875rem;
+  color: #bbb;
+  text-align: center;
+}
+
+/* ── footer / pager ── */
+
+.footer {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid #f1f1f1;
+}
+
+.pager {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageBtn {
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.45rem;
+  font-size: 0.82rem;
+  color: #555;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  transition: background 0.1s;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: #f0f0f0;
+}
+
+.pageBtn:disabled {
+  color: #d4d4d4;
+  cursor: default;
+}
+
+.pageBtnActive {
+  font-weight: 600;
+  color: #fff;
+  background: #0f0f0f;
+}
+
+.pageBtnActive:hover:not(:disabled) {
+  background: #222;
+}
