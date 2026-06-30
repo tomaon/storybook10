@@ -1,4 +1,4 @@
-import { createContext, type ParentProps, useContext } from "solid-js";
+import { createContext, createMemo, type ParentProps, useContext } from "solid-js";
 
 import { IDBStorage, type KeyValuePair } from "../../base/utils/storage.ts";
 
@@ -43,5 +43,6 @@ export function useAppContext() {
 }
 
 export function AppContextProvider(props: ParentProps) {
-  return <appContext.Provider value={new AppContext()}>{props.children}</appContext.Provider>;
+  const context = createMemo(() => new AppContext());
+  return <appContext.Provider value={context()}>{props.children}</appContext.Provider>;
 }

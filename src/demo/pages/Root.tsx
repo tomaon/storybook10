@@ -29,6 +29,12 @@ function RootContent() {
 
   async function onFulfilled() {
     await refetch();
+    setOffset((current) => {
+      const newTotal = resource()?.[1] ?? 0;
+      if (newTotal <= 0) return 0;
+      const maxOffset = Math.max(0, Math.ceil(newTotal / PAGE_SIZE) - 1) * PAGE_SIZE;
+      return Math.min(current, maxOffset);
+    });
     return true;
   }
 
@@ -76,27 +82,18 @@ function RootContent() {
     setPendingConfirm(undefined);
   }
 
-  async function executeConfirm(): Promise<boolean> {
+  async function executeConfirm() {
     const pending = pendingConfirm();
     if (!pending) return false;
-    const result = await pending.action();
-    if (result) closeConfirm();
-    return result;
+    return pending.action();
   }
 
   function onDeleteSelected(keys: string[]) {
-    openConfirm(`${keys.length}件のエントリーを削除しますか？`, async () => {
-      const result = await removeItems(keys);
-      return result;
-    });
+    openConfirm(`${keys.length}件のエントリーを削除しますか？`, () => removeItems(keys));
   }
 
   function onDelete(key: string) {
-    openConfirm(`「${key}」を削除しますか？`, async () => {
-      const result = await removeItem(key);
-      if (result) closeEdit();
-      return result;
-    });
+    openConfirm(`「${key}」を削除しますか？`, async () => removeItem(key));
   }
 
   createEffect(
@@ -157,7 +154,13 @@ function RootContent() {
           total={total()}
         />
         <AddModal id="add-modal" onCreate={addItem} />
-        <EditModal entry={entry} id="edit-modal" onDelete={onDelete} onUpdate={setItem} />
+        <EditModal
+          entry={entry}
+          id="edit-modal"
+          onClose={closeEdit}
+          onDelete={onDelete}
+          onUpdate={setItem}
+        />
         <ConfirmModal
           id="confirm-modal"
           message={pendingConfirm()?.message ?? ""}

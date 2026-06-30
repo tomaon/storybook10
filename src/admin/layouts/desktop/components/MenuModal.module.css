@@ -1,0 +1,26 @@
+.root {
+  padding-bottom: var(--spacing-base);
+
+  dd {
+    padding: 0 var(--spacing-base);
+  }
+
+  dt {
+    padding: var(--spacing-base) var(--spacing-base) var(--spacing-2xs) var(--spacing-base);
+    border-bottom: 1px solid var(--color-base-200);
+  }
+
+  ul {
+    display: flex;
+    padding-top: var(--spacing-2xs);
+  }
+
+  a {
+    padding: var(--spacing-2xs);
+
+    &:hover {
+      background-color: var(--color-base-100);
+      border-radius: var(--radius-lg);
+    }
+  }
+}

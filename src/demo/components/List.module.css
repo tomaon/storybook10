@@ -4,7 +4,7 @@
   margin: 2.5rem auto;
   overflow: hidden;
   font-family: "Inter", system-ui, sans-serif;
-  background: #fff;
+  background: var(--color-base-050);
   border-radius: 12px;
   box-shadow:
     0 1px 3px rgb(0 0 0 / 0.06),
@@ -54,37 +54,6 @@
   display: grid;
   grid-auto-flow: column;
   gap: 0.5rem;
-}
-
-.btnAdd,
-.btnDelete {
-  padding: 0.35rem 0.85rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  border-radius: 6px;
-  transition: opacity 0.15s;
-}
-
-.btnAdd:hover,
-.btnDelete:hover {
-  opacity: 0.85;
-}
-
-.btnAdd {
-  color: #fff;
-  background: #0f0f0f;
-}
-
-.btnDelete {
-  color: #dc2626;
-  background: #fee2e2;
-}
-
-.btnDelete:disabled {
-  cursor: default;
-  opacity: 0.4;
 }
 
 /* ── table ── */

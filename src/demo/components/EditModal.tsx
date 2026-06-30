@@ -8,8 +8,9 @@ import styles from "./EditModal.module.css";
 interface Props {
   id: string;
   entry: Accessor<Entry | undefined>;
-  onUpdate: (key: string, value: string) => Promise<boolean>;
+  onClose: () => void;
   onDelete: (key: string) => void;
+  onUpdate: (key: string, value: string) => Promise<boolean>;
 }
 
 export function EditModal(props: Props) {
@@ -20,34 +21,28 @@ export function EditModal(props: Props) {
 
   return (
     <Modal
-      callback={(formData) => {
-        const k = (formData.get("key") as string).trim();
-        const v = (formData.get("value") as string).trim();
+      action={(formData) => {
+        const k = (formData.get("k") as string).trim();
+        const v = (formData.get("v") as string).trim();
         return props.onUpdate(k, v);
       }}
       id={props.id}
+      onClose={props.onClose}
     >
       <header>
         <h2 class={styles.title}>詳細</h2>
         <CloseButton commandfor={props.id} />
       </header>
-      <Show when={props.entry()}>
-        {(entry) => (
+      <Show keyed when={props.entry()}>
+        {({ k, v }) => (
           <div class={styles.body}>
             <label class={styles.field}>
               <span class={styles.label}>Key</span>
-              <input
-                class={styles.input}
-                name="key"
-                readonly
-                type="text"
-                value={entry().k}
-                z-index="-1"
-              />
+              <input class={styles.input} name="k" readonly type="text" value={k} />
             </label>
             <label class={styles.field}>
               <span class={styles.label}>Value</span>
-              <input autofocus class={styles.input} name="value" type="text" value={entry().v} />
+              <input autofocus class={styles.input} name="v" type="text" value={v} />
             </label>
           </div>
         )}

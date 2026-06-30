@@ -4,18 +4,18 @@ import styles from "./Dialog.module.css";
 
 type Props = JSX.DialogHtmlAttributes<HTMLDialogElement> & {
   id: string; // optional -> required
-  callback?: (formData: FormData) => Promise<boolean>;
+  action?: (formData: FormData) => Promise<boolean>;
 };
 
 export function Modal(props: Props) {
-  const [local, rest] = splitProps(props, ["children", "callback"]);
+  const [local, others] = splitProps(props, ["children", "action"]);
   const resolved = children(() => local.children);
 
   // <<Portal /> ?, TODO
 
   return (
-    <dialog {...rest} class={styles.root} on:click={onClick} on:close={onClose}>
-      {local.callback ? <form on:submit={onSubmit(local.callback)}>{resolved()}</form> : resolved()}
+    <dialog {...others} class={styles.root} on:click={onClick} on:close={onClose}>
+      {local.action ? <form on:submit={onSubmit(local.action)}>{resolved()}</form> : resolved()}
     </dialog>
   );
 }
@@ -34,11 +34,11 @@ function onClose(e: Event) {
   (e.currentTarget as HTMLDialogElement).querySelector("form")?.reset();
 }
 
-function onSubmit(callback: (formData: FormData) => Promise<boolean>) {
+function onSubmit(action: (formData: FormData) => Promise<boolean>) {
   return async (e: SubmitEvent) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
-    if (await callback(new FormData(form))) {
+    if (await action(new FormData(form))) {
       form.closest<HTMLDialogElement>("dialog")?.close();
     }
   };

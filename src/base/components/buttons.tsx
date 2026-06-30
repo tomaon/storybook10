@@ -9,15 +9,18 @@ export function OutlineButton(props: Props) {
 }
 
 export function SolidButton(props: Props & { variant?: "destructive" }) {
-  const [local, rest] = splitProps(props, ["variant"]);
+  const [local, others] = splitProps(props, ["variant"]);
   return (
-    <button {...rest} class={local.variant === "destructive" ? styles.destructive : styles.solid} />
+    <button
+      {...others}
+      class={local.variant === "destructive" ? styles.destructive : styles.solid}
+    />
   );
 }
 
 export function CloseButton(props: Props) {
   return (
-    <button {...props} class={styles.close} command="close" type="button" z-index="-1">
+    <button {...props} class={styles.close} command="close" type="button">
       ✕
     </button>
   );

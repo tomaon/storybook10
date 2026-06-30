@@ -18,7 +18,13 @@ export const WithEntry: Story = {
   render: () => {
     const [entry] = createSignal<Entry>({ k: "greeting", v: "Hello, World!" });
     return (
-      <EditModal entry={entry} id="edit-modal" onDelete={() => {}} onUpdate={async () => true} />
+      <EditModal
+        entry={entry}
+        id="edit-modal"
+        onClose={() => {}}
+        onDelete={() => {}}
+        onUpdate={async () => true}
+      />
     );
   },
   play: async () => {
@@ -31,7 +37,13 @@ export const EmptyEntry: Story = {
   render: () => {
     const [entry] = createSignal<Entry>();
     return (
-      <EditModal entry={entry} id="edit-modal" onDelete={() => {}} onUpdate={async () => true} />
+      <EditModal
+        entry={entry}
+        id="edit-modal"
+        onClose={() => {}}
+        onDelete={() => {}}
+        onUpdate={async () => true}
+      />
     );
   },
   play: async () => {

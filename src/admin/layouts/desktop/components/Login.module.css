@@ -1,0 +1,20 @@
+.root {
+  display: grid;
+  gap: var(--spacing-base);
+  place-content: center;
+  height: 100dvh;
+  color: var(--color-base-950);
+  background-color: var(--color-base-050);
+}
+
+.button {
+  padding: var(--spacing-2xs) var(--spacing-base);
+  color: var(--color-base-100);
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: var(--radius-md);
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
+}

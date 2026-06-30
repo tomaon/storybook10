@@ -37,7 +37,7 @@ export const Default: Story = {
 
 export const WithForm: Story = {
   render: () => (
-    <Modal callback={async () => true} id="story-form-modal">
+    <Modal action={async () => true} id="story-form-modal">
       <header>
         <h2>フォーム付きモーダル</h2>
         <CloseButton commandfor="story-form-modal" />

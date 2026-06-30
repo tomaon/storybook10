@@ -1,0 +1,77 @@
+---
+alwaysApply: false
+globs: src/**/*.tsx
+---
+
+Never generate React patterns.
+
+Forbidden:
+- defaultValue
+- useState
+- useEffect
+- useMemo
+- useCallback
+- React.FC
+
+Required:
+- createSignal
+- createEffect
+- createMemo
+- Show
+- For
+- createResource
+
+Always write idiomatic SolidJS.
+
+---
+
+Signal getters must be called.
+
+Bad:
+
+const count = createSignal(0)
+
+<div>{count}</div>
+
+Good:
+
+<div>{count()}</div>
+
+---
+
+## Wrapping native elements — do not override `CustomEventHandlersCamelCase`
+
+When a component renders a native element (`<dialog>`, `<button>`, `<input>`, …), extend the matching `JSX.*HtmlAttributes<T>`. That type already includes `CustomEventHandlersCamelCase` (`onClick`, `onClose`, `onInput`, …).
+
+**Do not redeclare `on*` handlers on the wrapper Props.** Pass them through `{...others}` to the native element.
+
+Bad — overrides the DOM handler type:
+
+```tsx
+type Props = JSX.DialogHtmlAttributes<HTMLDialogElement> & {
+  onClose?: () => void;
+};
+```
+
+Good — only add props the wrapper itself interprets; spread the rest:
+
+```tsx
+type Props = JSX.DialogHtmlAttributes<HTMLDialogElement> & {
+  id: string;
+  action?: (formData: FormData) => Promise<boolean>;
+};
+
+const [local, others] = splitProps(props, ["children", "action"]);
+return <dialog {...others} on:close={resetForm} />;
+```
+
+Callers pass DOM handlers directly; `() => void` is assignable to `EventHandlerUnion`:
+
+```tsx
+<Modal id="menu-modal" onClose={() => setOpen(false)} />
+```
+
+Notes:
+- Do not `splitProps(..., ["onClose", ...])` for handlers that spread already forwards — unless explicitly requested.
+- Do not use `addEventListener` on `getElementById` when the same handler can be passed as a JSX prop.
+- An internal function named `onClose` (or similar) for wrapper-only logic (e.g. form reset) is not a reason to add a public Prop with the same name.

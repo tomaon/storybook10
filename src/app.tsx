@@ -1,5 +1,7 @@
+import { Navigate, Route, Router } from "@solidjs/router";
 import { ErrorBoundary } from "solid-js";
 
+import { Layout as AdminLayout, Routes as AdminRoutes } from "./admin/index.tsx";
 import { ReasonContextProvider } from "./base/hooks/useReasonContext.tsx";
 import { Demo } from "./demo/index.tsx";
 
@@ -18,7 +20,13 @@ export function App() {
   return (
     <ErrorBoundary fallback={fallback}>
       <ReasonContextProvider>
-        <Demo />
+        <Router>
+          <Route component={() => <Navigate href="/admin" />} path="/" />
+          <Route component={AdminLayout} path="/admin">
+            <AdminRoutes />
+          </Route>
+          <Route component={Demo} path="/demo" />
+        </Router>
       </ReasonContextProvider>
     </ErrorBoundary>
   );

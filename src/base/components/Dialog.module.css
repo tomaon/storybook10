@@ -1,5 +1,5 @@
 .root {
-  width: min(420px, calc(100vw - 2rem));
+  width: min(420px, calc(100dvw - 2rem));
   padding: 0;
   background: #fff;
   border: none;

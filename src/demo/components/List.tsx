@@ -1,5 +1,6 @@
 import { createEffect, createSignal, For, on, Show } from "solid-js";
 
+import { OutlineButton } from "../../base/components/buttons.tsx";
 import { Pagination } from "../../base/components/Pagination.tsx";
 import type { Entry } from "../hooks/useAppContext.tsx";
 import styles from "./List.module.css";
@@ -61,17 +62,16 @@ export function List(props: Props) {
           <span class={styles.count}>{props.total}</span>
         </div>
         <div class={styles.headerRight}>
-          <button class={styles.btnAdd} command="show-modal" commandfor="add-modal" type="button">
+          <OutlineButton command="show-modal" commandfor="add-modal" type="button">
             追加
-          </button>
-          <button
-            class={styles.btnDelete}
+          </OutlineButton>
+          <OutlineButton
             on:click={() => props.onDeleteSelected([...checked()])}
             disabled={checked().size === 0}
             type="button"
           >
-            削除{checked().size > 0 ? `（${checked().size}）` : ""}
-          </button>
+            削除
+          </OutlineButton>
         </div>
       </header>
       <table class={styles.table}>

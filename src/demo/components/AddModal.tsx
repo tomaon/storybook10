@@ -10,7 +10,7 @@ interface Props {
 export function AddModal(props: Props) {
   return (
     <Modal
-      callback={(formData) => {
+      action={(formData) => {
         const k = (formData.get("key") as string).trim();
         const v = (formData.get("value") as string).trim();
         return props.onCreate(k, v);
