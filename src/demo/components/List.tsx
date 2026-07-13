@@ -40,7 +40,11 @@ export function List(props: Props) {
     return () =>
       setChecked((prev) => {
         const next = new Set(prev);
-        next.has(key) ? next.delete(key) : next.add(key);
+        if (next.has(key)) {
+          next.delete(key);
+        } else {
+          next.add(key);
+        }
         return next;
       });
   }
@@ -49,9 +53,12 @@ export function List(props: Props) {
     setChecked(new Set<string>(allChecked() ? [] : props.entries.map((e) => e.k)));
   }
 
-  let allCheckEl!: HTMLInputElement;
+  const [allCheckEl, setAllCheckEl] = createSignal<HTMLInputElement>();
   createEffect(() => {
-    allCheckEl.indeterminate = checked().size > 0 && !allChecked();
+    const el = allCheckEl();
+    if (el) {
+      el.indeterminate = checked().size > 0 && !allChecked();
+    }
   });
 
   return (
@@ -81,7 +88,7 @@ export function List(props: Props) {
               <input
                 on:change={toggleAll}
                 checked={allChecked()}
-                ref={allCheckEl}
+                ref={setAllCheckEl}
                 type="checkbox"
               />
             </th>

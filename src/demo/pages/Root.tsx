@@ -38,8 +38,8 @@ function RootContent() {
     return true;
   }
 
-  function onRejected(reason: unknown) {
-    setReason(reason);
+  function onRejected(cause: unknown) {
+    setReason(cause);
     return Promise.resolve(false);
   }
 
@@ -66,8 +66,8 @@ function RootContent() {
   const entries = createMemo(() => (resource()?.[0] ?? []).slice(offset(), offset() + PAGE_SIZE));
   const total = createMemo(() => resource()?.[1] ?? 0);
 
-  function openEdit(entry: Entry) {
-    setEntry({ ...entry });
+  function openEdit(next: Entry) {
+    setEntry({ ...next });
   }
 
   function closeEdit() {
@@ -82,9 +82,9 @@ function RootContent() {
     setPendingConfirm(undefined);
   }
 
-  async function executeConfirm() {
+  function executeConfirm() {
     const pending = pendingConfirm();
-    if (!pending) return false;
+    if (!pending) return Promise.resolve(false);
     return pending.action();
   }
 
@@ -93,7 +93,7 @@ function RootContent() {
   }
 
   function onDelete(key: string) {
-    openConfirm(`「${key}」を削除しますか？`, async () => removeItem(key));
+    openConfirm(`「${key}」を削除しますか？`, () => removeItem(key));
   }
 
   createEffect(

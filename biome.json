@@ -9,7 +9,50 @@
   },
   "linter": {
     "rules": {
+      "preset": "all",
+      "a11y": {
+        "noAutofocus": "off"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "off",
+        "noExcessiveLinesPerFunction": "off",
+        "noForEach": "off",
+        "useSimplifiedLogicExpression": "off"
+      },
+      "correctness": {
+        "noUnresolvedImports": "off",
+        "useUniqueElementIds": "off"
+      },
+      "performance": {
+        "noBarrelFile": "off",
+        "noJsxPropsBind": "off"
+      },
+      "security": {
+        "noSecrets": "off"
+      },
+      "style": {
+        "noDefaultExport": "off",
+        "noHexColors": "off",
+        "noImplicitBoolean": "off",
+        "noJsxLiterals": "off",
+        "noNonNullAssertion": "off",
+        "noTernary": "off",
+        "useBlockStatements": "off",
+        "useComponentExportOnlyModules": "off",
+        "useConsistentTypeDefinitions": "off",
+        "useExportsLast": "off",
+        "useFilenamingConvention": "off",
+        "useNamingConvention": "off"
+      },
+      "suspicious": {
+        "noConsole": "off",
+        "noEmptyBlockStatements": "off",
+        "noUnknownAttribute": "off",
+        "useAwait": "error"
+      },
       "nursery": {
+        "noFloatingPromises": "error",
+        "noMisusedPromises": "error",
         "useSortedClasses": {
           "level": "error",
           "options": {
@@ -17,12 +60,21 @@
             "functions": ["clsx", "cn"]
           }
         }
-      },
-      "style": {
-        "noNonNullAssertion": "off"
       }
     }
   },
+  "overrides": [
+    {
+      "includes": ["**/*.stories.tsx"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "useAwait": "off"
+          }
+        }
+      }
+    }
+  ],
   "assist": {
     "actions": {
       "source": {

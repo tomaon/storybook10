@@ -1,3 +1,5 @@
+/** IndexedDB as an async, typed localStorage-shaped KV. No IDB schema/indexes/migrations. */
+
 export class IDBStorage {
   private readonly appEnv: string;
   private readonly db: Promise<IDBDatabase>;
@@ -14,11 +16,11 @@ export class IDBStorage {
 
   // Storage
 
-  async length(): Promise<number> {
+  length(): Promise<number> {
     return this.count();
   }
 
-  async clear(): Promise<void> {
+  clear(): Promise<void> {
     return this.db.then(
       (db) =>
         new Promise((resolve, reject) => {
@@ -31,7 +33,7 @@ export class IDBStorage {
     );
   }
 
-  async getItem<T>(key: IDBValidKey | IDBKeyRange): Promise<T | undefined> {
+  getItem<T>(key: IDBValidKey | IDBKeyRange): Promise<T | undefined> {
     return this.db.then(
       (db) =>
         new Promise((resolve, reject) => {
@@ -44,11 +46,11 @@ export class IDBStorage {
     );
   }
 
-  async key(_index: number): Promise<IDBValidKey> {
-    throw new Error("not implemented");
+  key(_index: number): Promise<IDBValidKey> {
+    return Promise.reject(new Error("not implemented"));
   }
 
-  async removeItem(key: IDBValidKey | IDBKeyRange): Promise<void> {
+  removeItem(key: IDBValidKey | IDBKeyRange): Promise<void> {
     return this.db.then(
       (db) =>
         new Promise((resolve, reject) => {
@@ -61,7 +63,7 @@ export class IDBStorage {
     );
   }
 
-  async setItem<T>(key: IDBValidKey, value: T): Promise<IDBValidKey> {
+  setItem<T>(key: IDBValidKey, value: T): Promise<IDBValidKey> {
     return this.db.then(
       (db) =>
         new Promise((resolve, reject) => {
@@ -76,7 +78,7 @@ export class IDBStorage {
 
   // other
 
-  async count(query?: IDBValidKey | IDBKeyRange): Promise<number> {
+  count(query?: IDBValidKey | IDBKeyRange): Promise<number> {
     return this.db.then(
       (db) =>
         new Promise((resolve, reject) => {
@@ -89,7 +91,7 @@ export class IDBStorage {
     );
   }
 
-  async addItem<T>(key: IDBValidKey, value: T): Promise<IDBValidKey> {
+  addItem<T>(key: IDBValidKey, value: T): Promise<IDBValidKey> {
     return this.db.then(
       (db) =>
         new Promise((resolve, reject) => {
@@ -102,7 +104,7 @@ export class IDBStorage {
     );
   }
 
-  async getItems<T>(queryOrOptions?: IDBValidKey | IDBKeyRange, count?: number): Promise<T[]> {
+  getItems<T>(queryOrOptions?: IDBValidKey | IDBKeyRange, count?: number): Promise<T[]> {
     return this.db.then(
       (db) =>
         new Promise((resolve, reject) => {

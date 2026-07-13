@@ -14,6 +14,7 @@ type Story = StoryObj<T>;
 
 export const Default: Story = {
   args: {
+    id: "add-modal",
     onCreate: async () => true,
   },
   play: async () => {
@@ -24,6 +25,7 @@ export const Default: Story = {
 
 export const OnCreateFailure: Story = {
   args: {
+    id: "add-modal",
     onCreate: async () => false,
   },
   play: async () => {

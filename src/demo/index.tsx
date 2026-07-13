@@ -1,4 +1,4 @@
-import { AppContextProvider } from "./hooks/useAppContext";
+import { AppContextProvider } from "./hooks/useAppContext.tsx";
 import { Root } from "./pages/Root.tsx";
 
 export function Demo() {

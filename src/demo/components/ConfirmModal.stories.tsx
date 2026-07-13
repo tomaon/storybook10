@@ -14,7 +14,9 @@ type Story = StoryObj<T>;
 
 export const Default: Story = {
   args: {
+    id: "confirm-modal",
     message: "このエントリーを削除しますか？",
+    onClose: () => {},
     onConfirm: async () => true,
   },
   play: async () => {
@@ -25,8 +27,10 @@ export const Default: Story = {
 
 export const LongMessage: Story = {
   args: {
+    id: "confirm-modal",
     message:
       "この操作は元に戻せません。本当に削除してもよろしいですか？削除後はデータを復元することができません。",
+    onClose: () => {},
     onConfirm: async () => true,
   },
   play: async () => {
