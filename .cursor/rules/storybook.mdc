@@ -1,0 +1,13 @@
+---
+description: Every components/*.tsx module must have a sibling *.stories.tsx
+globs: src/**/components/**/*.tsx
+alwaysApply: false
+---
+
+# Component stories
+
+Any `src/**/components/**/*.tsx` module (except `*.stories.tsx`) must have a sibling story file:
+
+`Component.tsx` → `Component.stories.tsx`
+
+When adding or renaming a component under `components/`, add or rename the story in the same change. Do not leave components without stories.

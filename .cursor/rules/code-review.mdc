@@ -1,34 +1,53 @@
 ---
-description: Checklist and required context when reviewing this codebase; keep this file current
+description: Generic two-axis code review (Standards vs Spec); keep this process current
 alwaysApply: true
 ---
 
 # Code review
 
-Judge changes against AGENTS.md goals: maintainability, simplicity, performance, strong typing. Also follow `.cursor/rules/solidjs.mdc`.
+Review along **two axes**. Do not merge or rerank findings across axes — a change can pass one and fail the other.
 
-**Keep this file up to date.** When a review or change shows the checklist is wrong, stale, or missing a recurring check, update `.cursor/rules/code-review.mdc` in the same turn (add, correct, or remove bullets). Prefer source comments for one-file design intent; put only cross-cutting review checks here.
+- **Standards** — does the code match this repo’s documented conventions?
+- **Spec** — does the code do what was asked (issue / PRD / user request)?
 
-## Read first
+## Standards sources
 
-1. `package.json` — scripts, pinned vs `*` deps, engines/Volta
-2. `src/app.tsx` — routes (`/admin`, `/demo`), ErrorBoundary, providers
-3. Layer map: `base/` shared · `demo/` KV UI · `admin/` shell + auth
-4. `.storybook/preview.ts` + related `*.stories.tsx` when UI/CSS changes
-5. `public/globals.css` — design tokens used by CSS modules
+Read, in order:
 
-## Always check
+1. `AGENTS.md`
+2. `.cursor/rules/*.mdc` (except this file’s process text)
+3. Other docs the repo names (`CONTRIBUTING.md`, `CODING_STANDARDS.md`, …)
 
-- **Dialogs**: nested open/close lifecycle; avoid stacked `<dialog>`; prefer JSX handlers/refs over `getElementById` + effect when possible
-- **Wrappers**: merge caller `class` with module class; do not clobber spread props
-- **Context hooks**: throw if outside provider — no silent `as` casts
-- **IDBStorage** (`base/utils/storage.ts`): respect the file comment — typed localStorage-shaped KV, not a schemaed DB
-- **Storybook**: `globals.css` (or tokens) loaded; required props (e.g. modal `id`) present so `play` works
-- **a11y**: no accidental `tabIndex={-1}` on nav; icon-only controls need names; rows/buttons keyboard-reachable
-- **Errors**: domain failures surfaced in UI (not only `console` / uncleared ReasonContext)
-- **Dead API**: no public `throw new Error("not implemented")` left callable; wire or remove unused auth/UI
-- **Tooling**: stricter Biome (`preset: "all"` + promise rules); prefer read-only lint in CI (`biome check` without `--write`)
+Repo docs win over generic taste. Skip anything tooling already enforces (`npm run check`, Biome, tsc, …). Prefer source comments for one-file design intent; keep cross-cutting process here, project facts in `AGENTS.md`.
+
+**Smell baseline** (judgement calls only; name the smell, don’t treat as hard fail): Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest.
+
+## Spec source
+
+1. What the user asked in this conversation / attached issue or PRD
+2. Issue refs in commits (`#123`, …) if a tracker workflow exists
+3. Spec files under `docs/`, `specs/`, … if present
+4. If none: say so and skip the Spec axis (or ask once)
+
+## How to run
+
+- Prefer reviewing a **diff against a fixed point** (`git diff <base>...HEAD`) when the user names a commit/branch/PR; otherwise review the relevant uncommitted or named changes.
+- For a formal branch/PR review, the mattpocock `code-review` skill (parallel Standards + Spec sub-agents) is the preferred procedure when available.
+- Otherwise run both axes yourself and keep them separate.
 
 ## Report format
 
-Severity (high / medium / low) · file path · concrete fix. Prefer the smallest change that matches existing patterns.
+### Standards
+
+- Documented-standard breach: cite source (file + rule) · path · concrete fix
+- Smell: smell name · path/hunk · suggested fix (judgement call)
+
+### Spec
+
+- Missing / partial requirement (quote spec)
+- Scope creep (behaviour not asked for)
+- Looks done but wrong (quote spec)
+
+End with one line: findings count per axis, and the worst item **within each** axis. No cross-axis “overall winner”.
+
+**Keep this file up to date** only for process gaps (axes, sources order, report shape). When a *project* check is wrong or missing, update `AGENTS.md` or the relevant domain rule — not a growing checklist here.

@@ -4,19 +4,19 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "preview": "vite preview",
-    "check": "biome check --write",
-    "storybook": "storybook dev -p 6006"
+    "check": "tsc -b && biome check --write",
+    "storybook": "storybook dev"
   },
   "dependencies": {
-    "@solidjs/router": "^0.16.1",
+    "@solidjs/router": "^0.16.2",
     "solid-js": "^1.9.14"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.3",
+    "@biomejs/biome": "^2.5.4",
     "@types/node": "^26",
-    "storybook": "^10.5.0",
+    "storybook": "^10.5.2",
     "storybook-solidjs-vite": "^10.6.0",
     "typescript": "^7.0.2",
     "vite": "*",
